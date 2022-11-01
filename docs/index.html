@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <title>Kozma Lajos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Kozma Lajos designer portfolió oldala. Az oldal célja, hogy prezentálja Kozma Lajos néhány eddigi munkáját."
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <link rel="shortcut icon" href="favicons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-config" content="favicons/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="/css/w3.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" type="module" async></script>
+    <style>
+      .loader-background {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #fff;
+        z-index: 98;
+      }
+
+      .loader {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        border: 7px solid #e9e9e9;
+        border-radius: 50%;
+        border-top: 7px solid #616161;
+        width: 70px;
+        height: 70px;
+        -webkit-animation: spin 1s linear 5;
+        animation: spin 1s linear 5;
+      }
+
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading spinner -->
+    <div class="loader-background">
+      <div class="loader"></div>
+    </div>
+
+    <main class="w3-content" style="max-width: 1600px">
+      <!-- Sidebar/menu -->
+      <nav
+        class="w3-sidebar w3-bar-block w3-white w3-text-grey w3-collapse w3-top w3-center"
+        style="z-index: 3; width: 300px; font-weight: bold"
+        id="mySidebar"
+      >
+        <br />
+        <h3 class="w3-padding-64 w3-center">
+          <b>KOZMA<br />LAJOS</b>
+        </h3>
+        <!-- <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-padding w3-hide-large"
+        >CLOSE</a
+      > -->
+        <a href="#" class="w3-bar-item w3-button close-sidebar">PORTFOLIÓ</a>
+        <a href="#videos" class="w3-bar-item w3-button close-sidebar"
+          >VIDEÓIM</a
+        >
+        <a href="#about" class="w3-bar-item w3-button close-sidebar">RÓLAM</a>
+        <a href="#contact" class="w3-bar-item w3-button close-sidebar"
+          >ELÉRHETŐSÉGEK</a
+        >
+        <!-- <br />
+        <a href="#" class="w3-bar-item w3-button close-sidebar">ENGLISH</a> -->
+      </nav>
+
+      <!-- Top menu on small screens -->
+      <header
+        class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16"
+      >
+        <span class="w3-left w3-padding">KOZMA LAJOS</span>
+        <div class="w3-right w3-button w3-white menu">☰</div>
+      </header>
+
+      <!-- Overlay effect when opening sidebar on small screens -->
+      <div
+        class="w3-overlay w3-hide-large w3-animate-opacity close-sidebar"
+        style="cursor: pointer"
+        title="close side menu"
+        id="myOverlay"
+      ></div>
+
+      <!-- !PAGE CONTENT! -->
+      <div class="w3-main" style="margin-left: 300px">
+        <!-- Push down content on small screens -->
+        <div class="w3-hide-large" style="margin-top: 83px"></div>
+
+        <!-- Photo grid -->
+        <div class="image-grid-wrapper">
+          <div class="image-grid">
+            <div
+              class="w3-row"
+              id="paginated-list"
+              data-current-page="1"
+              aria-live="polite"
+            ></div>
+
+            <div class="pagination-container">
+              <button
+                class="pagination-button"
+                id="prev-button"
+                aria-label="Previous page"
+                title="Previous page"
+              >
+                &lt;
+              </button>
+
+              <div id="pagination-numbers"></div>
+
+              <button
+                class="pagination-button"
+                id="next-button"
+                aria-label="Next page"
+                title="Next page"
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video grid -->
+        <div
+          id="videos"
+          class="video-grid-wrapper w3-black w3-containers w3-center w3-padding-32"
+        >
+          <h2><b>Videóim</b></h2>
+          <div class="media-grid">
+            <div class="w3-row" id="paginated-list2"></div>
+          </div>
+        </div>
+
+        <!-- Modal for full size images on click-->
+        <div
+          id="modal"
+          class="w3-modal w3-black"
+          style="padding-top: 0"
+          onclick="this.style.display='none'"
+        >
+          <!-- <span class="w3-button w3-black w3-xlarge w3-display-topright"
+            >×</span
+          > -->
+          <div
+            class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64"
+          >
+            <img id="modal-img" class="w3-image" />
+            <p id="caption"></p>
+          </div>
+        </div>
+
+        <!-- About section -->
+        <div
+          class="w3-containers w3-center w3-padding-32 w3-padding-large"
+          id="about"
+        >
+          <h2><b>Rólam</b></h2>
+          <img
+            src="images/kozma-lajos.jpg"
+            alt="Kozma Lajos, Lajos Kozma photo"
+            class="me-img"
+            width="600"
+            height="300"
+            loading="lazy"
+          />
+          <div class="w3-content w3-justify" style="max-width: 600px">
+            <h3>Kozma Lajos</h3>
+            <p>
+              Mindig is kreatív embernek tartottam magam, és ezt a visszajelzést
+              kapom a környezetemtől is, akik mindig szívesen keresnek fel, ha
+              egy képzelőerőt igénylő feladatról van szó.
+            </p>
+            <p>
+              A grafika területén évek óta töretlen az érdeklődésem és az
+              aktivitásom. Ezalatt számos projekten dolgoztam már, amik főleg
+              logók, arculatok, posztok, videók és egyszerűbb animációk voltak.
+              Szeretném tartósan növelni, emelni az általam készített munkák
+              számát és szłnvonalát.
+            </p>
+            <p>
+              Folyamatosan keresem a lehetőségeket, hogy képezzem magam a
+              szakmában. A főiskolai tanulmányaim alatt elvégeztem egy online
+              webdesign tanfolyamot. Jelenleg pedig egy szakirányú
+              továbbképzésen, a Budapesti Metropolitan Egyetem újmédia grafikus
+              szakán tanulok. Mindenkori álmom, hogy teljes időben kreatív
+              projekteken dolgozhassak.
+            </p>
+            <p>Az oldal célja, hogy prezentálja néhány eddigi munkámat.</p>
+            <hr />
+            <h3 class="w3-padding-16">Ismeretek</h3>
+            <p class="w3-wide">Photoshop</p>
+            <div class="w3-lightblue w3-text-white">
+              <div
+                class="w3-container w3-padding-small w3-center w3-plum"
+                style="width: 95%"
+              >
+                90%
+              </div>
+            </div>
+            <p class="w3-wide">Premiere Pro</p>
+            <div class="w3-lightblue w3-text-white">
+              <div
+                class="w3-container w3-padding-small w3-center w3-plum"
+                style="width: 80%"
+              >
+                80%
+              </div>
+            </div>
+            <p class="w3-wide">Social Media</p>
+            <div class="w3-lightblue w3-text-white">
+              <div
+                class="w3-container w3-padding-small w3-center w3-plum"
+                style="width: 80%"
+              >
+                80%
+              </div>
+            </div>
+            <div class="button-wrapper">
+              <a
+                href="documents/kozma-lajos-oneletrajz.pdf"
+                class="w3-button w3-black w3-text-white w3-padding-large w3-margin-top w3-margin-bottom"
+                target="_blank"
+              >
+                Önéletrajz
+              </a>
+              <a
+                href="documents/kozma-lajos-motivacios-level.pdf"
+                class="w3-button w3-black w3-text-white w3-padding-large w3-margin-top w3-margin-bottom"
+                target="_blank"
+              >
+                Motivációs levél
+              </a>
+              <a
+                href="documents/kozma-lajos-ajanlolevel.pdf"
+                class="w3-button w3-black w3-text-white w3-padding-large w3-margin-top w3-margin-bottom"
+                target="_blank"
+              >
+                Ajánlólevél
+              </a>
+            </div>
+            <hr />
+          </div>
+        </div>
+
+        <!-- Contact section -->
+        <div
+          class="w3-container w3-mustard w3-padding-32 w3-padding-large"
+          id="contact"
+        >
+          <div class="w3-content" style="max-width: 600px">
+            <h2 class="w3-center"><b>Elérhetőségek</b></h2>
+            <!-- <p>
+              Do you want me to photograph you? Fill out the form and fill me in
+              with the details :) I love meeting new people!
+            </p> -->
+            <div class="button-wrapper">
+              <a
+                href="tel:+36308904117"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                rel="noreferrer noopener nofollow"
+              >
+                +36 30 890 4117
+              </a>
+              <a
+                href="mailto:kozmalajos96@gmail.com"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                rel="noreferrer noopener nofollow"
+              >
+                kozmalajos96@gmail.com
+              </a>
+              <a
+                href="https://www.facebook.com/lajos.kozma.9"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                target="_blank"
+                rel="noreferrer noopener nofollow"
+              >
+                FB: lajos.kozma.9
+              </a>
+            </div>
+            <div class="button-wrapper">
+              <a
+                href="https://www.instagram.com/kzmvisualpoetry/"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                target="_blank"
+                rel="noreferrer noopener nofollow"
+              >
+                IG: KZMVisualPoetry
+              </a>
+              <a
+                href="https://www.youtube.com/c/KZMVisualPoetry"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                target="_blank"
+                rel="noreferrer noopener nofollow"
+              >
+                YT: KZMVisualPoetry
+              </a>
+              <a
+                href="https://www.facebook.com/kzmvisualpoetry"
+                class="w3-button w3-plum w3-text-white w3-padding-large w3-margin-top"
+                target="_blank"
+                rel="noreferrer noopener nofollow"
+              >
+                FB: KZMVisualPoetry
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="w3-black w3-center w3-padding-24">
+          © 2022 Kozma Lajos | All Rights Reserved.
+          <br />
+          Made with ❤️ by
+          <a href="https://daniel.harka.com" target="_blank" class="w3-bold"
+            >daniel.harka.com</a
+          >.
+        </div>
+
+        <!-- End page content -->
+      </div>
+    </main>
+  </body>
+</html>
